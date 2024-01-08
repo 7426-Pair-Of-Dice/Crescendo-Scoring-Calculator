@@ -1,2 +1,17 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import Team from "../components/Team.svelte";
+
+    
+
+</script>
+
+<main>
+    <Team teamName="Red Alliance"></Team>
+    <Team teamName="Blue Alliance"></Team>
+</main>
+
+<style>
+    main {
+        display: flex;
+    }
+</style>
