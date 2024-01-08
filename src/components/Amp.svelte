@@ -1,19 +1,48 @@
 <script lang="ts">
-    export let score = 0;
+	import Counter from "./Counter.svelte";
 
-    function addScore(addend: number) {
-        score += addend;
+    export let score = 0;
+    export let config = {
+        name: "Amp",
+        teleop: [
+            {
+                label: "Note",
+                value: 0,
+                increment: 1
+            }
+        ],
+        auto: [
+            {
+                label: "Note",
+                value: 0,
+                increment: 2
+            },
+        ],
+    };
+
+    $: {
+        let temp = 0;
+        [...config.teleop, ...config.auto].forEach((e)=>{
+            temp += e.value * e.increment
+        })
+
+        score = temp;
     }
 </script>
 
 <div class="container">
-    <h3>Amp</h3>
+    <h3>{config.name}</h3>
     <p>{score}</p>
 
     <p>Teleop</p>
-    <button on:click={()=>addScore(1)}>+ Note</button>
+    {#each config.teleop as method}
+        <Counter label={method.label} bind:value={method.value}></Counter>
+        <!-- <button on:click={()=>addScore(method.increment)}>{method.label}</button> -->
+    {/each}
     <p>Auto</p>
-    <button on:click={()=>addScore(2)}>+ Note</button>
+    {#each config.auto as method}
+        <Counter label={method.label} bind:value={method.value}></Counter>
+    {/each}
 </div>
 
 <style>
@@ -32,7 +61,7 @@
         margin: 0;
     }
 
-    button, p {
+    p {
         width: 100%;
     }
 </style>

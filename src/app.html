@@ -7,8 +7,59 @@
 		%sveltekit.head%
 
 		<style>
+  			@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=IBM+Plex+Mono:wght@300;400&display=swap');
+
 			:root {
 				color-scheme: dark;
+			}
+
+			* {
+				scrollbar-width: auto;
+				scrollbar-color: #363636 #131313;
+			}
+
+			*::-webkit-scrollbar {
+				width: 11px;
+			}
+
+			*::-webkit-scrollbar-track {
+				background: #131313;
+			}
+
+			*::-webkit-scrollbar-thumb {
+				background-color: #363636;
+				border-radius: 15px;
+				border: 2px solid #262626;
+			}
+
+			* {
+				font-family: 'Exo 2', sans-serif;
+				
+				user-select: none;
+			}
+
+			body,html {
+				background-color: #131313;
+				margin: 0;
+			}
+
+			html {
+				overflow:hidden
+			}
+			h1 {
+				margin: 0 0 1rem 0;
+				font-weight: 600;
+			}
+
+			@media only screen and (max-width: 1700px) {
+				html {
+					overflow:initial
+				}
+			}
+
+			a {
+				color: #ffcb72;
+				text-decoration: none;
 			}
 		</style>
 	</head>
