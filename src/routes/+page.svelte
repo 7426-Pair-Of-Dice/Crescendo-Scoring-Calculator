@@ -49,7 +49,7 @@
     <div class="controls">
         <div class="header">
             <a href="https://www.firstinspires.org/robotics/frc/game-and-season">
-                <img class="logo" src="/crescendo.png" alt="Crescendo Logo">
+                <img class="logo" src="./crescendo.png" alt="Crescendo Logo">
             </a>
             <h4>Scoring Calculator</h4>
             <p>Created by <a href="https://github.com/murphy28">Ohlin Arellano</a></p>
