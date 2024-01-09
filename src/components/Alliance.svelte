@@ -1,14 +1,22 @@
 <script lang="ts">
 	import type { AllianceInfo, FieldElementConfig } from "$lib/types";
 	import FieldElement from "./FieldElement.svelte";
+	import RankingPoints from "./RankingPoints.svelte";
 	import Stage from "./Stage.svelte";
 
     export let alliance: AllianceInfo;
 
-    let speakerScore = 0;
-    let ampScore = 0;
-    let stageScore = 0;
-    let generalScore = 0;
+    let scores = {
+        speaker: 0,
+        amp: 0,
+        stage: 0,
+        general: 0
+    }
+
+    let notes = {
+        amp: 0,
+        speaker: 0
+    }
 
     export let special = {
         coopertition: 0,
@@ -17,10 +25,10 @@
     }
 
     $: {
-        alliance.score = speakerScore + ampScore + stageScore + generalScore;
+        alliance.score = scores.speaker + scores.amp + scores.stage + scores.general;
 
         let melodyThreshold = special.coopertition ? 15 : 18
-        special.melody = (speakerScore + ampScore) >= melodyThreshold
+        special.melody = (notes.speaker + notes.amp) >= melodyThreshold
     }
     
     let speakerConfig: FieldElementConfig = {
@@ -102,15 +110,14 @@
                 <input class="editable-name" size={alliance.name.length ?? 0} type="text" bind:value={alliance.name} maxlength="20" placeholder="New Alliance">
             </div>
         </div>
+        <RankingPoints points={special}></RankingPoints>
         <h2 class="score">Total Score: {alliance.score}</h2>
-        <h2 class="score">Ensemble: {special.ensemble}</h2>
-        <h2 class="score">Melody: {special.melody}</h2>
     </div>
     <div class="container" style="--border-color:{alliance.color}">
-        <FieldElement config={speakerConfig} bind:score={speakerScore}></FieldElement>
-        <FieldElement config={ampConfig} bind:score={ampScore}></FieldElement>
-        <Stage bind:score={stageScore} radioColor={alliance.color} bind:ensemble={special.ensemble}></Stage>
-        <FieldElement config={general} bind:score={generalScore} bind:coopertition={special.coopertition}></FieldElement>
+        <FieldElement config={speakerConfig} bind:score={scores.speaker} bind:count={notes.speaker}></FieldElement>
+        <FieldElement config={ampConfig} bind:score={scores.amp} bind:count={notes.amp}></FieldElement>
+        <Stage bind:score={scores.stage} radioColor={alliance.color} bind:ensemble={special.ensemble}></Stage>
+        <FieldElement config={general} bind:score={scores.general} bind:coopertition={special.coopertition}></FieldElement>
     </div>
 </div>
 
@@ -195,6 +202,8 @@
 
     h2 {
         font-weight: 500;
+        /* width:; */
+        text-align: end;
     }
 
 </style>

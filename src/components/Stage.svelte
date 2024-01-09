@@ -107,17 +107,6 @@
         margin: 0;
     }
 
-    span {
-        width: 100%;
-        padding-bottom: 0.5rem;
-        font-weight: 600;
-        color:#606060;
-    }
-
-    span:not(:first-of-type) {
-        padding-top: 1rem;
-    }
-
     @media only screen and (max-width: 670px) {
         .container {
             width:100%;

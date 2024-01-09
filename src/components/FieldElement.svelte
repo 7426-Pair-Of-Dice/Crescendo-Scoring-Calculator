@@ -2,7 +2,7 @@
 	import type { FieldElementConfig } from "$lib/types";
 	import Counter from "./Counter.svelte";
 
-    export let score = 0, color: string = "#393939";
+    export let score = 0, color: string = "#393939", count = 0;
     export let config: FieldElementConfig;
 
     let categories = Object.keys(config.category)
@@ -10,15 +10,17 @@
     export let coopertition = 0;
 
     $: {
-        let temp = 0;
+        let tempScore = 0, tempCount = 0
 
         categories.forEach((category)=>{
             config.category[category].forEach((method)=>{
-                temp += method.value * method.increment
+                tempScore += method.value * method.increment
+                tempCount += method.value
             })
         })
 
-        score = temp;
+        score = tempScore;
+        count = tempCount;
     }
 </script>
 

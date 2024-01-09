@@ -47,12 +47,6 @@
         color:#cccccc;
     }
 
-    .label.title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color:#ffffff;
-    }
-
     button {
         background-color: #393939;
         border: 1px solid;

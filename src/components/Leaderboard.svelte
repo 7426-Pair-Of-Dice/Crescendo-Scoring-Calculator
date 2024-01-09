@@ -29,9 +29,17 @@
         justify-content: center;
         border-radius: 0.5rem;
         border: 1px #393939 solid;
-        overflow:hidden;
         box-sizing: border-box;
     }
+
+    .row:first-of-type {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .row:last-of-type {
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
+
 
     .row {
         display: flex;

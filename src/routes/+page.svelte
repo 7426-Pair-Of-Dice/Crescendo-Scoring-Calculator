@@ -2,7 +2,6 @@
 	import Counter from "../components/Counter.svelte";
     import Alliance from "../components/Alliance.svelte";
 	import type { AllianceInfo } from "$lib/types";
-	import AllianceDetails from "../components/AllianceDetails.svelte";
 	import Leaderboard from "../components/Leaderboard.svelte";
 
     let allianceCount = 2;
@@ -45,6 +44,10 @@
     }
 
 </script>
+
+<svelte:head>
+    <title>Crescendo Calculator</title>
+</svelte:head>
 
 <main>
     <div class="controls">
@@ -97,6 +100,7 @@
     .controls {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width:30%;
         height: 100%;
         overflow-y:auto;
@@ -135,8 +139,11 @@
 
         .controls, .teams {
             max-width: 70rem;
-            padding:1rem;
             width:100%;
+        }
+
+        .controls {
+            padding: 0;
         }
     }
 </style>
