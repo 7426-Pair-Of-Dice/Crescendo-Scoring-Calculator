@@ -10,6 +10,7 @@ export interface CategoryItem {
     value: number;
     increment: number;
     max?:number;
+    coopertition?:boolean;
 }
 
 export interface AllianceInfo {

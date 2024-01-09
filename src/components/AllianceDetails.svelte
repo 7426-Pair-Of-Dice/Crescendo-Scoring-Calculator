@@ -17,7 +17,7 @@
     <div class="container">
         <span class="label">Color</span>
         <div class="input color" style="--alliance-color:{alliance.color}">
-            <input type="color" bind:value={alliance.color} maxlength="16">
+            <input type="color" bind:value={alliance.color}>
         </div>
     </div>
 </div>

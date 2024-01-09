@@ -3,6 +3,7 @@
     import Alliance from "../components/Alliance.svelte";
 	import type { AllianceInfo } from "$lib/types";
 	import AllianceDetails from "../components/AllianceDetails.svelte";
+	import Leaderboard from "../components/Leaderboard.svelte";
 
     let allianceCount = 2;
 
@@ -55,23 +56,17 @@
             <p>Created by <a href="https://github.com/murphy28">Ohlin Arellano</a></p>
             <p>From <a href="https://pairofdice.vegas/">Pair of Dice 7426</a></p>
         </div>
-        <h2>Alliances</h2>
-        <Counter label="Amount" max={6} bind:value={allianceCount} multiplier={0}></Counter>
-
-        <div class="alliances">
+        <h2>Leaderboard</h2>
+        <Leaderboard {alliances}></Leaderboard>
+    </div>
+    <div class="teams-wrapper">
+        <Counter label="Alliances" max={30} bind:value={allianceCount} multiplier={0} title={true}></Counter>
+        <br>
+        <div class="teams">
             {#each alliances as alliance}
-                <AllianceDetails bind:alliance></AllianceDetails>
+                <Alliance bind:alliance></Alliance>
             {/each}
         </div>
-    </div>
-    <div class="teams">
-        {#each alliances as alliance}
-            <Alliance color={alliance.color} teamName={alliance.name} bind:teamScore={alliance.score}></Alliance>
-        {/each}
-    </div>
-    <div class="results">
-        <div class="credits"></div>
-        <Counter label="Alliances" max={6}  multiplier={0}></Counter>
     </div>
 </main>
 
@@ -87,31 +82,26 @@
     }
 
     .teams {
-        display: flex;
-        flex-direction: column;
-        width: fit-content;
-        height: 100%;
         padding-right: 1rem;
         overflow-y:auto;
         overflow-x: hidden;
     }
 
-    .controls, .results {
+    .teams-wrapper, .teams {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        width:fit-content;
+        width: 100%;
+        height: 100%;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: column;
+        width:30%;
         height: 100%;
         overflow-y:auto;
         overflow-x: hidden;
         padding-right: 1rem;
-    }
-
-    .alliances {
-        max-height: 60vh;
-        overflow-y: scroll;
-        padding-right: 1rem;
-        margin-top: 1rem;
     }
 
     .header {
@@ -143,27 +133,10 @@
             flex-direction: column;
         }
 
-        .controls, .results, .teams {
+        .controls, .teams {
             max-width: 70rem;
             padding:1rem;
             width:100%;
-        }
-
-        .alliances {
-            display: flex;
-            max-height: unset;
-            overflow-y:initial;
-            padding: 0rem;
-            width:100%;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
-    }
-
-    @media only screen and (max-width: 670px) {
-        .alliances {
-            display: initial;
         }
     }
 </style>

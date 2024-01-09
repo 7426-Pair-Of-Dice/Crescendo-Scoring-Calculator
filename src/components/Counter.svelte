@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let label: string, increment: number = 1, decrement: number = increment, multiplier:number, max:number | undefined;
+    export let label: string, increment: number = 1, decrement: number = increment, multiplier:number = 0, max:number | undefined = undefined, title:boolean = false;
 
     export let value = 0;
 
@@ -14,7 +14,7 @@
 </script>
 
 <div class="container">
-    <span class="label" title="+/- {multiplier} Points">{label}</span>
+    <span class="label {title ? "title" : ""}" title="{multiplier > 0 ? "+/- " + multiplier + " Points": label}">{label}</span>
     <div class="counter">
         <button on:click={()=>subtract()}>-</button>
         <input type="number" bind:value={value} min="0" max={max}>
@@ -55,6 +55,12 @@
 
     .label {
         color:#cccccc;
+    }
+
+    .label.title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color:#ffffff;
     }
 
     button {

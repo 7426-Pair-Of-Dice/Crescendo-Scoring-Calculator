@@ -3,27 +3,11 @@
 	import Counter from "./Counter.svelte";
 
     export let score = 0, color: string = "#393939";
-    export let config: FieldElementConfig = {
-        name: "Amp",
-        category: {
-            teleop: [
-                {
-                    label: "Note",
-                    value: 0,
-                    increment: 1
-                }
-            ],
-            auto: [
-                {
-                    label: "Note",
-                    value: 0,
-                    increment: 2
-                },
-            ]
-        }
-    }
+    export let config: FieldElementConfig;
 
     let categories = Object.keys(config.category)
+
+    export let coopertition = 0;
 
     $: {
         let temp = 0;
@@ -48,7 +32,11 @@
         {#each categories as category}
             <span>{category}</span>
             {#each config.category[category] as method}
-                <Counter label={method.label} bind:value={method.value} multiplier={method.increment} max={method.max}></Counter>
+                {#if method.coopertition}
+                    <Counter label={method.label} bind:value={coopertition} multiplier={method.increment} max={method.max}></Counter>
+                    {:else}
+                    <Counter label={method.label} bind:value={method.value} multiplier={method.increment} max={method.max}></Counter>
+                {/if}
                 <!-- <button on:click={()=>addScore(method.increment)}>{method.label}</button> -->
             {/each}
         {/each}
