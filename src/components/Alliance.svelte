@@ -206,4 +206,20 @@
         text-align: end;
     }
 
+    @media only screen and (max-width: 670px) {
+        .inputs {
+            width:100%;
+        }
+
+        .input {
+            margin-bottom: 0;
+        }
+        
+        .header {
+            flex-wrap: wrap;
+            justify-content: spacee;
+            margin-bottom: 0.5rem;
+        }
+    }
+
 </style>

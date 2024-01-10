@@ -80,7 +80,8 @@
     .container > * {
         margin: 0;
     }
-
+    
+    
     span {
         width: 100%;
         padding-bottom: 0.5rem;

@@ -2,29 +2,13 @@
     export let points: any;
 </script>
 
-<div class="container">
-    <span class="label"></span>
-    <div class="counter">
-        <span class="point{points.coopertition ? " active" : ""} " title="Coopertition">🤝</span>
-        <span class="point{points.melody ? " active" : ""} color" title="Melody">🎵</span>
-        <span class="point{points.ensemble ? " active" : ""} color" title="Ensemble">🎶</span>
-    </div>
+<div class="ranking-points">
+    <span class="point{points.coopertition ? " active" : ""} " title="Coopertition">🤝</span>
+    <span class="point{points.melody ? " active" : ""} color" title="Melody">🎵</span>
+    <span class="point{points.ensemble ? " active" : ""} color" title="Ensemble">🎶</span>
 </div>
-
 <style>
-    .container * {
-        border: unset;
-        outline: unset
-    }
-
-    .container {
-        display: flex;
-        box-sizing: border-box;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .counter {
+    .ranking-points {
         display: flex;
         width:fit-content;
         border: 1px solid;
@@ -32,11 +16,6 @@
         border-radius: 5px;
         overflow: hidden;   
         transition: border-color 0.25s ease;
-        margin-left: 2rem;
-    }
-
-    .label {
-        color:#cccccc;
     }
 
     .color {

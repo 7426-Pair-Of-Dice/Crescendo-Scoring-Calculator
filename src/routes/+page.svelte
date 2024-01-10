@@ -3,18 +3,19 @@
     import Alliance from "../components/Alliance.svelte";
 	import type { AllianceInfo } from "$lib/types";
 	import Leaderboard from "../components/Leaderboard.svelte";
+	import Key from "../components/Key.svelte";
 
     let allianceCount = 2;
 
     let alliances: AllianceInfo[] = [
         {
             name: "Red Alliance",
-            color: "#c94e4e",
+            color: "#ff304f",
             score: 0
         },
         {
             name: "Blue Alliance",
-            color: "#3d6cb9",
+            color: "#2f89fc",
             score: 0
         }
     ];
@@ -22,12 +23,13 @@
 
     $: {
         if(allianceCount < 1) allianceCount = 1;
+        if(allianceCount > 30) allianceCount = 30;
 
         while (alliances.length < allianceCount) {
             alliances = [
                 ...alliances,
                 {
-                    name: `Alliance ${alliances.length + 1}`,
+                    name: `${getRandomMember()} Alliance`,
                     color: getRandomColor(),
                     score: 0
                 }
@@ -41,6 +43,39 @@
 
     function getRandomColor() {
         return "#" + Math.floor(Math.random() * 16777215).toString(16);
+    }
+
+    function getRandomMember() {
+        let member: string[] = [
+            "Otto",
+            "Ohlin",
+            "Anthony",
+            "Aidan",
+            "Aspen",
+            "West",
+            "Goblo",
+            "Cohen",
+            "Eli",
+            "Brian",
+            "Jo",
+            "Annabelle",
+            "Alex",
+            "Vieira",
+            "Miller",
+            "Jackie",
+            "Jonathan",
+            "Stephen",
+            "Zach",
+            "Armando",
+            "Marco",
+            "Rose",
+            "Skylar",
+            "John",
+            "Bechtler",
+            "Myers",
+            "Ollie"
+        ]
+        return member[Math.floor(Math.random() * member.length)];
     }
 
 </script>
@@ -58,8 +93,29 @@
             <h4>Scoring Calculator</h4>
             <p>Created by <a href="https://github.com/murphy28">Ohlin Arellano</a></p>
             <p>From <a href="https://pairofdice.vegas/">Pair of Dice 7426</a></p>
+
+            <div class="links">
+                <a href="https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator">Github</a>
+                <a href="https://www.chiefdelphi.com/t/crescendo-web-scoring-calculator/448827">Chief Delphi</a>
+            </div>
         </div>
-        <h2>Leaderboard</h2>
+
+        <h3>Stage Actions</h3>
+        <div class="legend">
+            <Key description="Robot has not interacted with stage.">X</Key>
+            <Key description="Robot is parked on stage.">P</Key>
+            <Key description="Robot has climbed onto left of stage.">L</Key>
+            <Key description="Robot has climbed onto right of stage.">C</Key>
+            <Key description="Robot has climbed onto center of stage.">R</Key>
+        </div>
+        <h3>Ranking Points</h3>
+        <div class="legend">
+            <Key title="Coopertition Bonus" description="Melody threshold set to 15.">🤝</Key>
+            <Key title="Melody" description="18 or more notes scored." colored>🎵</Key>
+            <Key title="Ensemble" description="2 robots onstage and 10 or more stage points." colored>🎶</Key>
+        </div>
+
+        <h3>Leaderboard</h3>
         <Leaderboard {alliances}></Leaderboard>
     </div>
     <div class="teams-wrapper">
@@ -116,6 +172,7 @@
         margin: 2rem 0 2rem 0;
     }
 
+
     .logo {
         height:5rem;
     }
@@ -131,6 +188,17 @@
         margin: 0.5rem 0 0 0;
     }
 
+    .links {
+        margin: 0.5rem 0 0 0;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .links * {
+        color:#606060;
+        font-size: 0.75rem;
+    }
+
     @media only screen and (max-width: 1700px) {
         main {
             height:fit-content;
@@ -138,7 +206,6 @@
         }
 
         .controls, .teams {
-            max-width: 70rem;
             width:100%;
         }
 
