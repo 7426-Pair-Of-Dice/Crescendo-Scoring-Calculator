@@ -105,8 +105,8 @@
             <Key description="Robot has not interacted with stage.">X</Key>
             <Key description="Robot is parked on stage.">P</Key>
             <Key description="Robot has climbed onto left of stage.">L</Key>
-            <Key description="Robot has climbed onto right of stage.">C</Key>
-            <Key description="Robot has climbed onto center of stage.">R</Key>
+            <Key description="Robot has climbed onto center of stage.">C</Key>
+            <Key description="Robot has climbed onto right of stage.">R</Key>
         </div>
         <h3>Ranking Points</h3>
         <div class="legend">
