@@ -1,19 +1,13 @@
-# Crescendo Scoring Calculator
+# Reefscape Scoring Calculator
 
-A streamlined and user-friendly scoring calculator designed specifically for the 2024 FRC game Crescendo. Created using Svelte, this calculator covers all scoring rules found in the manual. 
+A streamlined and user-friendly scoring calculator designed specifically for the 2025 FRC game Reefscape. Created using Svelte, this calculator covers all scoring rules found in the manual. 
 
 [Live Demo](https://frc.ohlinis.me)
 
-![image](https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator/assets/32149826/cdfd0b4a-b700-45f6-ada4-463b74fcdb34)
+![image](https://i.imgur.com/qLISHiq.png)
 
-## Primary Features
-
-- Full scoring for the Amp and Stage in both Auto and Teleop
-- Full scoring for Stage endgame positions and Trap notes
-- Coopertition evaluation
-- Ensemble and Melody Ranking Points indicators
-
-## Bonus Features
+## Features
+- All standard scoring elements found in the official manual
 - Ability to add and subtract alliance scoresheets
 - Modification of alliance names and colors
 - Leaderboard ranking alliance results from highest to lowest
@@ -22,19 +16,19 @@ A streamlined and user-friendly scoring calculator designed specifically for the
 
 ### Alliance Scoring Sheet
 
-![image](https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator/assets/32149826/e68128ce-702d-4389-9b3c-8f4ea1b66f52)
+![image](https://i.imgur.com/NClox4b.png)
 
 ### Leaderboard
 
-![image](https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator/assets/32149826/25e98785-58c2-4862-bc4c-5b7cd0b839c3)
+![image](https://i.imgur.com/4Bwjl4t.png)
 
-### Color Modification
+### Custom Alliance Colors
 
-![image](https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator/assets/32149826/7b2a49b8-d219-491f-ba08-c80bdec79078)
+![image](https://i.imgur.com/Ath1Qbh.png)
 
-### Name Modification
+### Custom Alliance Names
 
-![image](https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator/assets/32149826/b976dec3-b59b-4531-a601-94b002a2ec7e)
+![image](https://i.imgur.com/McwQwyl.png)
 
 
 ## Usage
@@ -64,3 +58,7 @@ npm run build
 
 
 Feedback and suggestions for improvement are appreciated!
+
+
+#### Credits
+[Dynamic Open Graph Image Generator](https://dynamic-og-image-generator.vercel.app/) by Sagar Hani

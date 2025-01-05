@@ -16,11 +16,10 @@
 <div class="container">
     <span class="label {title ? "title" : ""}" title="{label}">{label}</span>
     <div class="radio" style="--alliance-color:{color}">
-        <button title="Not interacting with stage" class="{value == 0 ? "selected" : ""}" on:click={()=>setEnd(0)}>X</button>
+        <button title="Not interacting with barge" class="{value == 0 ? "selected" : ""}" on:click={()=>setEnd(0)}>X</button>
         <button title="Parked" class="{value == 1 ? "selected" : ""}" on:click={()=>setEnd(1)}>P</button>
-        <button title="Left Onstage" class="{value == 2 ? "selected" : ""}" on:click={()=>setEnd(2)}>L</button>
-        <button title="Center Onstage" class="{value == 3 ? "selected" : ""}" on:click={()=>setEnd(3)}>C</button>
-        <button title="Right Onstage" class="{value == 4 ? "selected" : ""}" on:click={()=>setEnd(4)}>R</button>
+        <button title="Shallow Cage Hang" class="{value == 2 ? "selected" : ""}" on:click={()=>setEnd(2)}>S</button>
+        <button title="Deep Cage Hang" class="{value == 3 ? "selected" : ""}" on:click={()=>setEnd(3)}>D</button>
     </div>
 </div>
 

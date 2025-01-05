@@ -2,75 +2,47 @@
 	import type { AllianceInfo, FieldElementConfig } from "$lib/types";
 	import FieldElement from "./FieldElement.svelte";
 	import RankingPoints from "./RankingPoints.svelte";
-	import Stage from "./Stage.svelte";
+	import Reef from "./Reef.svelte";
+	import Barge from "./Barge.svelte";
 
     export let alliance: AllianceInfo;
 
     let scores = {
-        speaker: 0,
-        amp: 0,
-        stage: 0,
+        reef: 0,
+        algae: 0,
+        barge: 0,
         general: 0
     }
 
-    let notes = {
-        amp: 0,
-        speaker: 0
-    }
+    let autoCoralScored = 0;
 
     export let special = {
         coopertition: 0,
-        ensemble: false,
-        melody: false
+        auto: 0,
+        coral: 0,
+        barge: 0
     }
 
     $: {
-        alliance.score = scores.speaker + scores.amp + scores.stage + scores.general;
+        alliance.score = scores.algae + scores.barge + scores.general + scores.reef;
 
-        let melodyThreshold = special.coopertition ? 15 : 18
-        special.melody = (notes.speaker + notes.amp) >= melodyThreshold
-    }
-    
-    let speakerConfig: FieldElementConfig = {
-        name: "Speaker",
-        category:{
-            Auto: [
-                {
-                    label: "Note",
-                    value: 0,
-                    increment: 5
-                },
-            ],
-            Teleop: [
-                {
-                    label: "Note",
-                    value: 0,
-                    increment: 2
-                },
-                {
-                    label: "Amplified Note",
-                    value: 0,
-                    increment: 5
-                }
-            ]
-        }
+        special.auto = scores.general >= 9 && autoCoralScored >= 1 ? 1 : 0;
     }
 
-    let ampConfig: FieldElementConfig = {
-        name: "Amp",
+
+    let algaeConfig: FieldElementConfig = {
+        name: "Algae",
         category:{
-            Auto: [
+            Location: [
                 {
-                    label: "Note",
+                    label: "Processor",
                     value: 0,
-                    increment: 2
+                    increment: 6
                 },
-            ],
-            Teleop: [
                 {
-                    label: "Note",
+                    label: "Net",
                     value: 0,
-                    increment: 1
+                    increment: 4
                 }
             ]
         }
@@ -83,13 +55,13 @@
                 {
                     label: "Robot Left Start",
                     value: 0,
-                    increment: 2,
+                    increment: 3,
                     max: 3
                 }
             ],
             Coopertition: [
                 {
-                    label: "Buttons pressed",
+                    label: "2 algae in each processor",
                     value: 0,
                     increment: 0,
                     coopertition: true,
@@ -114,9 +86,10 @@
         <h2 class="score">Total Score: {alliance.score}</h2>
     </div>
     <div class="container" style="--border-color:{alliance.color}">
-        <FieldElement config={speakerConfig} bind:score={scores.speaker} bind:count={notes.speaker}></FieldElement>
-        <FieldElement config={ampConfig} bind:score={scores.amp} bind:count={notes.amp}></FieldElement>
-        <Stage bind:score={scores.stage} radioColor={alliance.color} bind:ensemble={special.ensemble}></Stage>
+        <!-- <FieldElement config={reefConfig}></FieldElement> -->
+        <Reef bind:score={scores.reef} bind:coopertition={special.coopertition} bind:coralRP={special.coral} bind:autoCount={autoCoralScored}></Reef>
+        <FieldElement config={algaeConfig} bind:score={scores.algae}></FieldElement>
+        <Barge bind:score={scores.barge} radioColor={alliance.color} bind:bargeRP={special.barge}></Barge>
         <FieldElement config={general} bind:score={scores.general} bind:coopertition={special.coopertition}></FieldElement>
     </div>
 </div>

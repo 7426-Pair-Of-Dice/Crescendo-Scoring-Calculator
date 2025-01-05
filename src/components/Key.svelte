@@ -26,6 +26,7 @@
     .key {
         display: flex;
         width:fit-content;
+        min-width: 1.5rem;
         border: 1px solid;
         border-color: #393939;
         border-radius: 5px;
@@ -35,13 +36,14 @@
 
     .colored {
         color: transparent;  
-        text-shadow: 0 0 0 #00d586;
+        text-shadow: 0 0 0 #7fe5f7;
     }
 
     .point {
         background-color: #393939;
         transition: background-color 0.25s ease;
         font-size: 1rem;
+        min-width: 1.5rem;
         width:1.5rem;
         height: 1.5rem;
         text-align: center;
@@ -62,6 +64,10 @@
     .container h3 {
         font-size: 1rem;
         margin:0 0 0.25rem 0;
+    }
+
+    .info {
+        max-width: 20rem;
     }
 
 </style>

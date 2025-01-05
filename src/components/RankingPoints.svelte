@@ -4,8 +4,9 @@
 
 <div class="ranking-points">
     <span class="point{points.coopertition ? " active" : ""} " title="Coopertition">🤝</span>
-    <span class="point{points.melody ? " active" : ""} color" title="Melody">🎵</span>
-    <span class="point{points.ensemble ? " active" : ""} color" title="Ensemble">🎶</span>
+    <span class="point{points.auto ? " active" : ""} color" title="Auto">🤖</span>
+    <span class="point{points.coral ? " active" : ""} color" title="Coral">🪸</span>
+    <span class="point{points.barge ? " active" : ""} color" title="Barge">🤿</span>
 </div>
 <style>
     .ranking-points {
@@ -20,7 +21,7 @@
 
     .color {
         color: transparent;  
-        text-shadow: 0 0 0 #00d586;
+        text-shadow: 0 0 0 #7fe5f7;
     }
 
     .point {
@@ -33,6 +34,6 @@
     }
 
     .active {
-        background-color: #0a5335;
+        background-color: #005f73;
     }
 </style>

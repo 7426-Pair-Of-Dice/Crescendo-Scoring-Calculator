@@ -73,7 +73,11 @@
             "John",
             "Bechtler",
             "Myers",
-            "Ollie"
+            "Ollie",
+            "Drake",
+            "Jory",
+            "Ella",
+            "Cole"
         ]
         return member[Math.floor(Math.random() * member.length)];
     }
@@ -88,31 +92,32 @@
     <div class="controls">
         <div class="header">
             <a href="https://www.firstinspires.org/robotics/frc/game-and-season">
-                <img class="logo" src="./crescendo.png" alt="Crescendo Logo">
+                <img class="logo" src="./reefscape.png" alt="Crescendo Logo">
             </a>
             <h4>Scoring Calculator</h4>
             <p>Created by <a href="https://github.com/murphy28">Ohlin Arellano</a></p>
             <p>From <a href="https://pairofdice.vegas/">Pair of Dice 7426</a></p>
 
             <div class="links">
-                <a href="https://github.com/7426-Pair-Of-Dice/Crescendo-Scoring-Calculator">Github</a>
-                <a href="https://www.chiefdelphi.com/t/crescendo-web-scoring-calculator/448827">Chief Delphi</a>
+                <a href="https://github.com/7426-Pair-Of-Dice">Github</a>
+                <a href="https://www.chiefdelphi.com/u/ohlin">Chief Delphi</a>
             </div>
         </div>
 
-        <h3>Stage Actions</h3>
+        <h3>Barge Actions</h3>
         <div class="legend">
-            <Key description="Robot has not interacted with stage.">X</Key>
-            <Key description="Robot is parked on stage.">P</Key>
-            <Key description="Robot has climbed onto left of stage.">L</Key>
-            <Key description="Robot has climbed onto center of stage.">C</Key>
-            <Key description="Robot has climbed onto right of stage.">R</Key>
+            <Key description="Robot has not interacted with barge.">X</Key>
+            <Key description="Robot is parked in the barge zone.">P</Key>
+            <Key description="Robot is off-the-ground via shallow cage.">S</Key>
+            <Key description="Robot is off-the-ground via deep cage.">D</Key>
         </div>
+
         <h3>Ranking Points</h3>
         <div class="legend">
-            <Key title="Coopertition Bonus" description="Melody threshold set to 15.">🤝</Key>
-            <Key title="Melody" description="18 or more notes scored." colored>🎵</Key>
-            <Key title="Ensemble" description="2 robots onstage and 10 or more stage points." colored>🎶</Key>
+            <Key title="Coopertition Bonus" description="At least 2 algae scored in each processor">🤝</Key>
+            <Key title="Auto" description="All robots leave and score 1 or more coral in auto" colored>🤖</Key>
+            <Key title="Coral" description="If at least 5 coral scored on each level. If co-op bonus, at least 5 coral scored on at least 3 levels" colored>🪸</Key>
+            <Key title="Barge" description="At least 14 barge points scored" colored>🤿</Key>
         </div>
 
         <h3>Leaderboard</h3>
@@ -174,7 +179,7 @@
 
 
     .logo {
-        height:5rem;
+        max-width: 15rem;
     }
 
     .header h4 {

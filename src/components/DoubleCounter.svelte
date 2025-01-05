@@ -1,26 +1,38 @@
 <script lang="ts">
-    export let label: string, increment: number = 1, decrement: number = increment, multiplier:number = 0, max:number | undefined = undefined, title:boolean = false;
+    export let label: string, increment: number = 1, decrement: number = increment, max:number | undefined = undefined, title:boolean = false;
 
-    export let value = 0;
+    export let autoValue = 0;
+    export let teleopValue = 0;
 
-    let add = () => {value += increment}
-    let subtract = () => {value -= decrement}
+    let autoAdd = () => {autoValue += increment}
+    let autoSubtract = () => {autoValue -= decrement}
+
+    let teleopAdd = () => {teleopValue += increment}
+    let teleopSubtract = () => {teleopValue -= decrement}
 
     $: {
-        if(value < 0) value = 0;
-        if(max && value > max) value = max;
+        if(autoValue < 0) autoValue = 0;
+        if(max && autoValue > max) autoValue = max;
+
+        if(teleopValue < 0) teleopValue = 0;
+        if(max && teleopValue > max) teleopValue = max;
     }
 
 </script>
-
 <div class="container">
-    <span class="label {title ? "title" : ""}" title="{multiplier > 0 ? "+/- " + multiplier + " Points": label}">{label}</span>
-    <div class="counter">
-        <button on:click={()=>subtract()}>-</button>
-        <input type="number" bind:value={value} min="0" max={max}>
-        <button on:click={()=>add()}>+</button>
+    <span class="label {title ? "title" : ""}">{label}</span>
+    <div class="counters">
+        <div class="counter" title="Autonomous">
+            <button on:click={()=>autoSubtract()}>-</button>
+            <input type="number" bind:value={autoValue} min="0" max={max}>
+            <button on:click={()=>autoAdd()}>+</button>
+        </div>
+        <div class="counter" title="Teleop">
+            <button on:click={()=>teleopSubtract()}>-</button>
+            <input type="number" bind:value={teleopValue} min="0" max={max}>
+            <button on:click={()=>teleopAdd()}>+</button>
+        </div>
     </div>
-    
 </div>
 
 <style>
@@ -38,6 +50,12 @@
         padding: 0 0rem 0.5rem 0rem;
     }
 
+    .counters {
+        display: flex;
+        gap: 0.5rem;
+        margin-left: 2rem;
+    }
+
     .counter {
         display: flex;
         width:fit-content;
@@ -46,7 +64,6 @@
         border-radius: 5px;
         overflow: hidden;   
         transition: border-color 0.25s ease;
-        margin-left: 2rem;
     }
 
     .counter:focus-within {
