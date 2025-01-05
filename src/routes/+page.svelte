@@ -85,22 +85,22 @@
 </script>
 
 <svelte:head>
-    <title>Crescendo Calculator</title>
+    <title>Reefscape Calculator</title>
 </svelte:head>
 
 <main>
     <div class="controls">
         <div class="header">
             <a href="https://www.firstinspires.org/robotics/frc/game-and-season">
-                <img class="logo" src="./reefscape.png" alt="Crescendo Logo">
+                <img class="logo" src="./reefscape.png" alt="Reefscape Logo">
             </a>
             <h4>Scoring Calculator</h4>
             <p>Created by <a href="https://github.com/murphy28">Ohlin Arellano</a></p>
             <p>From <a href="https://pairofdice.vegas/">Pair of Dice 7426</a></p>
 
             <div class="links">
-                <a href="https://github.com/7426-Pair-Of-Dice">Github</a>
-                <a href="https://www.chiefdelphi.com/u/ohlin">Chief Delphi</a>
+                <a href="https://github.com/7426-Pair-Of-Dice/FRC-Scoring-Calculator">Github</a>
+                <a href="https://www.chiefdelphi.com/t/reefscape-web-scoring-calculator/478718">Chief Delphi</a>
             </div>
         </div>
 
