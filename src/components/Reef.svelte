@@ -64,10 +64,10 @@
             <span>Auto</span>
             <span>Teleop</span>
         </div>
-        <DoubleCounter label="Trough" max={12} bind:autoValue={values[0].auto} bind:teleopValue={values[0].teleop}></DoubleCounter>
-        <DoubleCounter label="Level 2" max={12} bind:autoValue={values[1].auto} bind:teleopValue={values[1].teleop}></DoubleCounter>
-        <DoubleCounter label="Level 3" max={12} bind:autoValue={values[2].auto} bind:teleopValue={values[2].teleop}></DoubleCounter>
-        <DoubleCounter label="Level 4" max={12} bind:autoValue={values[3].auto} bind:teleopValue={values[3].teleop}></DoubleCounter>
+        <DoubleCounter label="Trough"  bind:autoValue={values[0].auto} bind:teleopValue={values[0].teleop}></DoubleCounter>
+        <DoubleCounter label="Level 2" bind:autoValue={values[1].auto} bind:teleopValue={values[1].teleop}></DoubleCounter>
+        <DoubleCounter label="Level 3" bind:autoValue={values[2].auto} bind:teleopValue={values[2].teleop}></DoubleCounter>
+        <DoubleCounter label="Level 4" bind:autoValue={values[3].auto} bind:teleopValue={values[3].teleop}></DoubleCounter>
     </div>
 
 </div>
