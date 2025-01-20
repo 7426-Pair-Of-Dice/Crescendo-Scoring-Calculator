@@ -41,15 +41,14 @@
                 <input class="editable-name" size={alliance.name.length ?? 0} type="text" bind:value={alliance.name} maxlength="20" placeholder="New Alliance">
             </div>
         </div>
-        <RankingPoints points={alliance.points.rankingPoints}></RankingPoints>
+        <RankingPoints points={alliance.points.rankingPoints} color={alliance.color}></RankingPoints>
         <h2 class="score">Total Score: {alliance.score}</h2>
     </div>
     <div class="container" style="--border-color:{alliance.color}">
-        <Reef 
-            bind:values={alliance.points.reef}
-            bind:score={scores.reef} 
-            bind:coopertition={alliance.points.rankingPoints.coopertition} 
-            bind:coralRP={alliance.points.rankingPoints.coral}
+        <General 
+            bind:robotLeaveCount={alliance.points.robotLeaveCount} 
+            bind:score={scores.general} 
+            bind:coopertition={alliance.points.rankingPoints.coopertition}
         />
 
         <Algae 
@@ -57,17 +56,18 @@
             bind:algae={alliance.points.algae}
         />
 
+        <Reef 
+            bind:values={alliance.points.reef}
+            bind:score={scores.reef} 
+            bind:coopertition={alliance.points.rankingPoints.coopertition} 
+            bind:coralRP={alliance.points.rankingPoints.coral}
+        />
+
         <Barge 
             bind:score={scores.barge} 
             bind:robots={alliance.points.barge}
             radioColor={alliance.color} 
             bind:bargeRP={alliance.points.rankingPoints.barge}
-        />
-
-        <General 
-            bind:robotLeaveCount={alliance.points.robotLeaveCount} 
-            bind:score={scores.general} 
-            bind:coopertition={alliance.points.rankingPoints.coopertition}
         />
     </div>
 </div>

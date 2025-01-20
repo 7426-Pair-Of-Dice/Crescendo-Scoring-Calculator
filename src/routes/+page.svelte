@@ -4,20 +4,30 @@
 	import type { AllianceInfo } from "$lib/types";
 	import Leaderboard from "../components/Leaderboard.svelte";
 	import Key from "../components/Key.svelte";
-	import { alliancesToCSV, createAlliance, csvToAlliances, generateFilename } from "$lib";
+	import { alliancesToCSV, csvToAlliances, generateFilename, getRandomMember } from "$lib";
 	import IconButton from "../components/inputs/IconButton.svelte";
-	import { ArrowDownToLine, FolderOpen } from "lucide-svelte";
+	import { ArrowDownToLine, FolderOpen, ListRestart } from "lucide-svelte";
+	import { createAlliance } from "$lib/alliance";
+    import { selectFile, downloadStringToFile } from "$lib/file";
+	import Legend from "../components/Legend.svelte";
+	import { rankingPoints } from "$lib/icons";
+	import { getRandomColor } from "$lib/colors";
+	import { loadAlliances, saveAlliances } from "$lib/storage";
 
-    let allianceCount = 2;
+    let allianceCount: number
 
-    let alliances: AllianceInfo[] = [
-        createAlliance("Red Alliance", "#ff304f"),
-        createAlliance("Blue Alliance", "#2f89fc")
-    ];
+    let alliances: AllianceInfo[]
+
+    let storedAlliances: AllianceInfo[] = loadAlliances()
+
+    if(storedAlliances.length > 0) {
+        allianceCount = storedAlliances.length
+        alliances = storedAlliances
+    } else resetAlliances()
+
 
     $: {
         if(allianceCount < 1) allianceCount = 1;
-        if(allianceCount > 30) allianceCount = 30;
 
         while (alliances.length < allianceCount) {
             alliances = [
@@ -26,82 +36,36 @@
             ];
         }
 
-
         while (alliances.length > allianceCount) {
             alliances = alliances.slice(0, -1);
         }
+
+        saveAlliances(alliances)
     }
 
-    function getRandomColor() {
-        return "#" + Math.floor(Math.random() * 16777215).toString(16);
-    }
+    function resetAlliances() {
+        allianceCount = 2
 
-    function getRandomMember() {
-        let member: string[] = [
-            "Otto",
-            "Ohlin",
-            "Anthony",
-            "Aidan",
-            "Aspen",
-            "West",
-            "Goblo",
-            "Cohen",
-            "Eli",
-            "Brian",
-            "Jo",
-            "Annabelle",
-            "Alex",
-            "Vieira",
-            "Miller",
-            "Jackie",
-            "Jonathan",
-            "Stephen",
-            "Zach",
-            "Armando",
-            "Marco",
-            "Rose",
-            "Skylar",
-            "John",
-            "Bechtler",
-            "Myers",
-            "Ollie",
-            "Drake",
-            "Jory",
-            "Ella",
-            "Cole"
+        alliances = [
+            createAlliance("Red Alliance", "#ff304f"),
+            createAlliance("Blue Alliance", "#2f89fc")
         ]
-        return member[Math.floor(Math.random() * member.length)];
     }
 
-    function exportCSV() {
-        const csv = alliancesToCSV(alliances);
-        const blob = new Blob([csv], { type: "text/csv" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = generateFilename();
-        link.click();
-        URL.revokeObjectURL(url);
+    function exportAlliances() {
+        downloadStringToFile(
+            generateFilename(".reefscape.csv"),
+            alliancesToCSV(alliances),
+            "text/csv"
+        )
     }
 
-    function importCSV() {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = ".reefscape.csv";
-        input.onchange = () => {
-            const file = input.files?.[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    const csv = reader.result?.toString() ?? "";
-                    let newAlliances = csvToAlliances(csv)
-                    allianceCount = newAlliances.length;
-                    alliances = newAlliances;
-                };
-                reader.readAsText(file);
-            }
-        };
-        input.click();
+    function importAlliances() {
+        selectFile(".reefscape.csv", csv => {
+            let newAlliances = csvToAlliances(csv)
+            allianceCount = newAlliances.length;
+            alliances = newAlliances;
+        });
     }
 
 </script>
@@ -136,10 +100,10 @@
 
         <h3>Ranking Points</h3>
         <div class="legend">
-            <Key title="Coopertition Bonus" description="At least 2 algae scored in each processor">🤝</Key>
-            <Key title="Auto" description="All robots leave and score 1 or more coral in auto" colored>🤖</Key>
-            <Key title="Coral" description="If at least 5 coral scored on each level. If co-op bonus, at least 5 coral scored on at least 3 levels" colored>🪸</Key>
-            <Key title="Barge" description="At least 14 barge points scored" colored>🤿</Key>
+            <Legend title="Coopertition Bonus" description="At least 2 algae scored in each processor" icon={rankingPoints.coopertition}></Legend>
+            <Legend title="Auto" description="All robots leave and score 1 or more coral in auto" icon={rankingPoints.auto}></Legend>
+            <Legend title="Coral" description="If at least 5 coral scored on each level. If co-op bonus, at least 5 coral scored on at least 3 levels" icon={rankingPoints.coral}></Legend>
+            <Legend title="Barge" description="At least 14 barge points scored" icon={rankingPoints.barge}></Legend>
         </div>
 
         <h3>Leaderboard</h3>
@@ -148,8 +112,9 @@
     <div class="teams-wrapper">
         <div class="alliance-options">
             <div class="section">
-                <IconButton icon={FolderOpen} onClick={importCSV}></IconButton>
-                <IconButton icon={ArrowDownToLine} onClick={exportCSV}></IconButton>
+                <IconButton icon={ListRestart} onClick={resetAlliances}></IconButton>
+                <IconButton icon={FolderOpen} onClick={importAlliances}></IconButton>
+                <IconButton icon={ArrowDownToLine} onClick={exportAlliances}></IconButton>
             </div>
             <div class="section">
                 <Counter label="Alliance Count" bind:value={allianceCount} multiplier={0} padding={false}></Counter>

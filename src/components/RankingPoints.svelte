@@ -1,12 +1,34 @@
 <script lang="ts">
-    export let points: any;
+	import { lowerColorBrightness } from "$lib/colors";
+	import { rankingPoints } from "$lib/icons";
+	import type { RankingPoints } from "$lib/types";
+
+    export let points: RankingPoints;
+    export let color: string = "#7fe5f7";
+
+    let allRankingPointsAchieved: boolean = false
+
+    $: {
+        allRankingPointsAchieved = true;
+        (Object.keys(points) as Array<keyof RankingPoints>).forEach(key => {
+            if (points[key] < 1) allRankingPointsAchieved = false;
+        });
+    }
 </script>
 
-<div class="ranking-points">
-    <span class="point{points.coopertition ? " active" : ""} " title="Coopertition">🤝</span>
-    <span class="point{points.auto ? " active" : ""} color" title="Auto">🤖</span>
-    <span class="point{points.coral ? " active" : ""} color" title="Coral">🪸</span>
-    <span class="point{points.barge ? " active" : ""} color" title="Barge">🤿</span>
+<div class="ranking-points {allRankingPointsAchieved ? 'complete' : ''}" style="--color:{color};--dark-color:{lowerColorBrightness(color)}">
+    <span class="point{points.coopertition ? " active" : ""} " title="Coopertition">
+        <svelte:component this={rankingPoints.coopertition} size={20} />
+    </span>
+    <span class="point{points.auto ? " active" : ""}" title="Auto">
+        <svelte:component this={rankingPoints.auto} size={20} />
+    </span>
+    <span class="point{points.coral ? " active" : ""}" title="Coral">
+        <svelte:component this={rankingPoints.coral} size={20} />
+    </span>
+    <span class="point{points.barge ? " active" : ""}" title="Barge">
+        <svelte:component this={rankingPoints.barge} size={20} />
+    </span>
 </div>
 <style>
     .ranking-points {
@@ -19,9 +41,8 @@
         transition: border-color 0.25s ease;
     }
 
-    .color {
-        color: transparent;  
-        text-shadow: 0 0 0 #7fe5f7;
+    .ranking-points.complete {
+        border-color: var(--color);
     }
 
     .point {
@@ -29,11 +50,15 @@
         transition: background-color 0.25s ease;
         width:2rem;
         height: 2rem;
+        display:flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         line-height: 2rem;
     }
 
     .active {
-        background-color: #005f73;
+        background-color: var(--dark-color);
+        color: var(--color);
     }
 </style>
