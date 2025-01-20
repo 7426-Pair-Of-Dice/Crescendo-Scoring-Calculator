@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let label: string, increment: number = 1, decrement: number = increment, multiplier:number = 0, max:number | undefined = undefined, title:boolean = false;
+    export let label: string, increment: number = 1, decrement: number = increment, multiplier:number = 0, max:number | undefined = undefined, title:boolean = false, padding:boolean = true;
 
     export let value = 0;
 
@@ -13,7 +13,7 @@
 
 </script>
 
-<div class="container">
+<div class="container" style="--padding:{padding ? "0.5rem" : "0"}">
     <span class="label {title ? "title" : ""}" title="{multiplier > 0 ? "+/- " + multiplier + " Points": label}">{label}</span>
     <div class="counter">
         <button on:click={()=>subtract()}>-</button>
@@ -35,7 +35,7 @@
         justify-content: space-between;
         align-items: center;
         width:100%;
-        padding: 0 0rem 0.5rem 0rem;
+        padding: 0 0 var(--padding) 0;
     }
 
     .counter {

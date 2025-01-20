@@ -1,9 +1,10 @@
 <script lang="ts">
-	import type { AllianceInfo, FieldElementConfig } from "$lib/types";
-	import FieldElement from "./FieldElement.svelte";
+	import type { AllianceInfo } from "$lib/types";
 	import RankingPoints from "./RankingPoints.svelte";
-	import Reef from "./Reef.svelte";
-	import Barge from "./Barge.svelte";
+	import Reef from "./widgets/Reef.svelte";
+	import Barge from "./widgets/Barge.svelte";
+	import Algae from "./widgets/Algae.svelte";
+	import General from "./widgets/General.svelte";
 
     export let alliance: AllianceInfo;
 
@@ -14,62 +15,20 @@
         general: 0
     }
 
-    let autoCoralScored = 0;
-
-    export let special = {
-        coopertition: 0,
-        auto: 0,
-        coral: 0,
-        barge: 0
-    }
-
     $: {
         alliance.score = scores.algae + scores.barge + scores.general + scores.reef;
 
-        special.auto = scores.general >= 9 && autoCoralScored >= 1 ? 1 : 0;
+        let autoCoralScored = 0;
+        alliance.points.reef.forEach((level)=>{
+            autoCoralScored += level.auto;
+        })
+
+        if (alliance.points.robotLeaveCount >= 3 && autoCoralScored >= 1) 
+            alliance.points.rankingPoints.auto = 1;
+        else 
+            alliance.points.rankingPoints.auto = 0;
     }
 
-
-    let algaeConfig: FieldElementConfig = {
-        name: "Algae",
-        category:{
-            Location: [
-                {
-                    label: "Processor",
-                    value: 0,
-                    increment: 6
-                },
-                {
-                    label: "Net",
-                    value: 0,
-                    increment: 4
-                }
-            ]
-        }
-    }
-
-    let general: FieldElementConfig = {
-        name: "General",
-        category:{
-            Auto: [
-                {
-                    label: "Robot Left Start",
-                    value: 0,
-                    increment: 3,
-                    max: 3
-                }
-            ],
-            Coopertition: [
-                {
-                    label: "2 algae in each processor",
-                    value: 0,
-                    increment: 0,
-                    coopertition: true,
-                    max: 1
-                }
-            ],
-        }
-    }
 </script>
 
 <div class="wrapper">
@@ -82,15 +41,34 @@
                 <input class="editable-name" size={alliance.name.length ?? 0} type="text" bind:value={alliance.name} maxlength="20" placeholder="New Alliance">
             </div>
         </div>
-        <RankingPoints points={special}></RankingPoints>
+        <RankingPoints points={alliance.points.rankingPoints}></RankingPoints>
         <h2 class="score">Total Score: {alliance.score}</h2>
     </div>
     <div class="container" style="--border-color:{alliance.color}">
-        <!-- <FieldElement config={reefConfig}></FieldElement> -->
-        <Reef bind:score={scores.reef} bind:coopertition={special.coopertition} bind:coralRP={special.coral} bind:autoCount={autoCoralScored}></Reef>
-        <FieldElement config={algaeConfig} bind:score={scores.algae}></FieldElement>
-        <Barge bind:score={scores.barge} radioColor={alliance.color} bind:bargeRP={special.barge}></Barge>
-        <FieldElement config={general} bind:score={scores.general} bind:coopertition={special.coopertition}></FieldElement>
+        <Reef 
+            bind:values={alliance.points.reef}
+            bind:score={scores.reef} 
+            bind:coopertition={alliance.points.rankingPoints.coopertition} 
+            bind:coralRP={alliance.points.rankingPoints.coral}
+        />
+
+        <Algae 
+            bind:score={scores.algae}
+            bind:algae={alliance.points.algae}
+        />
+
+        <Barge 
+            bind:score={scores.barge} 
+            bind:robots={alliance.points.barge}
+            radioColor={alliance.color} 
+            bind:bargeRP={alliance.points.rankingPoints.barge}
+        />
+
+        <General 
+            bind:robotLeaveCount={alliance.points.robotLeaveCount} 
+            bind:score={scores.general} 
+            bind:coopertition={alliance.points.rankingPoints.coopertition}
+        />
     </div>
 </div>
 

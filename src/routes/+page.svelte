@@ -4,22 +4,16 @@
 	import type { AllianceInfo } from "$lib/types";
 	import Leaderboard from "../components/Leaderboard.svelte";
 	import Key from "../components/Key.svelte";
+	import { alliancesToCSV, createAlliance, csvToAlliances, generateFilename } from "$lib";
+	import IconButton from "../components/inputs/IconButton.svelte";
+	import { ArrowDownToLine, FolderOpen } from "lucide-svelte";
 
     let allianceCount = 2;
 
     let alliances: AllianceInfo[] = [
-        {
-            name: "Red Alliance",
-            color: "#ff304f",
-            score: 0
-        },
-        {
-            name: "Blue Alliance",
-            color: "#2f89fc",
-            score: 0
-        }
+        createAlliance("Red Alliance", "#ff304f"),
+        createAlliance("Blue Alliance", "#2f89fc")
     ];
-
 
     $: {
         if(allianceCount < 1) allianceCount = 1;
@@ -28,13 +22,10 @@
         while (alliances.length < allianceCount) {
             alliances = [
                 ...alliances,
-                {
-                    name: `${getRandomMember()} Alliance`,
-                    color: getRandomColor(),
-                    score: 0
-                }
+                createAlliance(`${getRandomMember()} Alliance`, getRandomColor())
             ];
         }
+
 
         while (alliances.length > allianceCount) {
             alliances = alliances.slice(0, -1);
@@ -82,6 +73,37 @@
         return member[Math.floor(Math.random() * member.length)];
     }
 
+    function exportCSV() {
+        const csv = alliancesToCSV(alliances);
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = generateFilename();
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function importCSV() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".reefscape.csv";
+        input.onchange = () => {
+            const file = input.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const csv = reader.result?.toString() ?? "";
+                    let newAlliances = csvToAlliances(csv)
+                    allianceCount = newAlliances.length;
+                    alliances = newAlliances;
+                };
+                reader.readAsText(file);
+            }
+        };
+        input.click();
+    }
+
 </script>
 
 <svelte:head>
@@ -124,7 +146,15 @@
         <Leaderboard {alliances}></Leaderboard>
     </div>
     <div class="teams-wrapper">
-        <Counter label="Alliances" max={30} bind:value={allianceCount} multiplier={0} title={true}></Counter>
+        <div class="alliance-options">
+            <div class="section">
+                <IconButton icon={FolderOpen} onClick={importCSV}></IconButton>
+                <IconButton icon={ArrowDownToLine} onClick={exportCSV}></IconButton>
+            </div>
+            <div class="section">
+                <Counter label="Alliance Count" bind:value={allianceCount} multiplier={0} padding={false}></Counter>
+            </div>
+        </div>
         <br>
         <div class="teams">
             {#each alliances as alliance}
@@ -135,6 +165,18 @@
 </main>
 
 <style>
+    .alliance-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
     main {
         display: flex;
         align-items: center;

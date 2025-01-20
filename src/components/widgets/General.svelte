@@ -1,45 +1,27 @@
 <script lang="ts">
-	import Radio from "./Radio.svelte";
+	import Counter from "../Counter.svelte";
 
-    export let score = 0, color: string = "#393939", radioColor: string | undefined = undefined, bargeRP = 0;
+    export let score = 0, color: string = "#393939";
 
-    let robots = [
-        0,0,0
-    ]
+    export let robotLeaveCount = 0, coopertition = 0;
 
     $: {
-        score = 0;
-        robots.forEach((robot) => {
-            switch(robot) {
-                case 1:
-                    score += 2;
-                    break;
-                case 2:
-                    score += 6;
-                    break;
-                case 3:
-                    score += 12;
-                    break;
-            }
-        });
-
-        if (score >= 14) bargeRP = 1;
-        else bargeRP = 0;
-
+        score = robotLeaveCount * 3
     }
-
 </script>
 
 <div class="container" style="--border-color:{color}">
     <div class="header">
-        <h3 class="label">Barge</h3>
+        <h3 class="label">General</h3>
         <h3 class="score">{score}</h3>
     </div>
 
     <div class="body">
-        <Radio label="Robot 1" color={radioColor} bind:value={robots[0]}></Radio>
-        <Radio label="Robot 2" color={radioColor} bind:value={robots[1]}></Radio>
-        <Radio label="Robot 3" color={radioColor} bind:value={robots[2]}></Radio>
+        <span>Auto</span>
+        <Counter label="Robot Left Start" bind:value={robotLeaveCount} multiplier={3} max={3}></Counter>
+
+        <span>Coopertition</span>
+        <Counter label="2 algae in each processor" bind:value={coopertition} multiplier={0} max={1}></Counter>
     </div>
 
 </div>
@@ -77,6 +59,18 @@
 
     .container > * {
         margin: 0;
+    }
+    
+    
+    span {
+        width: 100%;
+        padding-bottom: 0.5rem;
+        font-weight: 600;
+        color:#606060;
+    }
+
+    span:not(:first-of-type) {
+        padding-top: 1rem;
     }
 
     @media only screen and (max-width: 670px) {

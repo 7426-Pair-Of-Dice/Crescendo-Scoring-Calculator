@@ -1,26 +1,10 @@
 <script lang="ts">
-	import DoubleCounter from "./DoubleCounter.svelte";
+	import type { AutoTeleopPoints } from "$lib/types";
+	import DoubleCounter from "../DoubleCounter.svelte";
 
-    export let score = 0, color: string = "#393939", autoCount = 0, coopertition = 0, coralRP = 0;
+    export let score = 0, color: string = "#393939", coopertition = 0, coralRP = 0;
 
-    let values = [
-        {
-            auto: 0,
-            teleop: 0
-        },
-        {
-            auto: 0,
-            teleop: 0
-        },
-        {
-            auto: 0,
-            teleop: 0
-        },
-        {
-            auto: 0,
-            teleop: 0
-        }
-    ]
+    export let values: AutoTeleopPoints[]
 
     let multipliers = {
         auto: [
@@ -35,11 +19,8 @@
         let total = 0;
         let levelsWithFiveCoral = 0;
 
-        autoCount = 0;
         for(let i = 0; i < values.length; i++) {
             total += (values[i].auto * multipliers.auto[i]) + (values[i].teleop * multipliers.teleop[i]);
-
-            autoCount += values[i].auto;
 
             if(values[i].auto + values[i].teleop  >= 5) levelsWithFiveCoral += 1;
         }
